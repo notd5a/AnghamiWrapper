@@ -186,7 +186,32 @@ class anghamiWrapper {
 
     }
 
-    //TODO: add the playlist / add and playlist / remove methods
+
+    public void playlist_add(String SONG_ID, String PLAYLIST_ID) {
+        SONG_ID = SONG_ID.trim(); PLAYLIST_ID = PLAYLIST_ID.trim();
+        String URL_APPEND = "playlist/add?song_id=" + SONG_ID + "&playlist_id=" + PLAYLIST_ID;
+        String FINAL_URL = URL_BASE + URL_APPEND;
+
+        try {
+            sendRequest(FINAL_URL, TOKEN);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void playlist_remove(String SONG_ID, String PLAYLIST_ID) {
+        SONG_ID = SONG_ID.trim(); PLAYLIST_ID = PLAYLIST_ID.trim();
+        String URL_APPEND = "playlist/add?song_id=" + SONG_ID + "&playlist_id=" + PLAYLIST_ID;
+        String FINAL_URL = URL_BASE + URL_APPEND;
+
+        try {
+            sendRequest(FINAL_URL, TOKEN);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
     public void trending(String MUSIC_LANGUAGE) {
