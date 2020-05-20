@@ -9,9 +9,6 @@ public class testClass {
     HttpURLConnection connection = null;
 
     public static void main(String[] args) {
-
-
-
         anghamiWrapper AW = new anghamiWrapper();
 
 

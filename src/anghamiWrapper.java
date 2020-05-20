@@ -28,16 +28,41 @@ class anghamiWrapper {
         URL url = new URL(FINURL);
         connection = (HttpsURLConnection) url.openConnection();
 
-        //setting headers and req method
+        // setting headers and req method
         connection.setRequestMethod(METHOD);
         connection.setRequestProperty("XATH", XATH_TOKEN);
         connection.setRequestProperty("XAT", XAT_HEADER);
 
-        //
+        // executing GET request
+        int RETURN_CODE = connection.getResponseCode();
+        InputStream CONNECTION_IN = null;
 
+        // checking for error codes
+        if(RETURN_CODE == 200) { //OK RESPONSE
+            CONNECTION_IN = connection.getInputStream();
+        }
+        else if(RETURN_CODE == 401) { //ERROR
+            System.out.println("Authentication failure");
+            CONNECTION_IN = connection.getErrorStream();
+        }
+        else if(RETURN_CODE == 420) { //ERROR
+            System.out.println("Erroneous request");
+            CONNECTION_IN = connection.getErrorStream();
+        }
+        else { //OTHER ERROR RESPONSES
+            CONNECTION_IN = connection.getErrorStream();
+        }
 
-
+        // print resulting stream
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(CONNECTION_IN));
+        String inputLine;
+        while ((inputLine = buffer.readLine()) != null) /* print json response */ System.out.println(inputLine);
+        buffer.close();
     }
+
+
+
+
 
     //Just listing the following endpoints below:
     // SONG
