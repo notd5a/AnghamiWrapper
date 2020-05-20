@@ -17,15 +17,27 @@ class anghamiWrapper {
     //  HEADER: XATH: 0965e52bb0605cb551a32c43
     //  API link: https://bus.anghami.com/public/song?song_id=22451141
 
+    // In order to get an item’s cover art, you
+    // need to build its URL. In general the URL will have the following format:
+    // https://artworkbus.angham.me/?id=123&size=320 where:
+    // id: the cover art’s ID. This can be the value of attributes coverArt, AlbumArt, ArtistArt,
+    // covertArtID…
+    // ● size: the desired image width. When it comes to sizes, Anghami generates and stores
+    // multiple image sizes. The available set of sizes:
+    // ○ for square images (width) is {60, 80, 120, 160, 223, 296, 320, 640, 1024}.
+    // ○ for rectangular images (width) is {246, 642, 672, 930, 1344, 1854}.
+
+    //Documentation available at: https://s3-eu-west-1.amazonaws.com/anghami.interns2020/Anghami+Public+API+interns2020.pdf
+
     final private String URL_BASE = "https://bus.anghami.com/public/";
     final private String TOKEN = "0965e52bb0605cb551a32c43";
     final private String METHOD = "GET";
     final private String XAT_HEADER = "interns";
     HttpURLConnection connection = null;
 
-    public void sendRequest(String FINURL, String XATH_TOKEN, String METHOD, String XAT_HEADER) throws IOException {
+    public void sendRequest(String FINAL_URL, String XATH_TOKEN) throws IOException {
         // init
-        URL url = new URL(FINURL);
+        URL url = new URL(FINAL_URL);
         connection = (HttpsURLConnection) url.openConnection();
 
         // setting headers and req method
@@ -57,34 +69,189 @@ class anghamiWrapper {
         buffer.close();
     }
 
+    public void song(String SONG_ID) {
+        String URL_APPEND = "song/data?song_id=";
+        SONG_ID = SONG_ID.trim();
+        String FINAL_URL = URL_BASE + URL_APPEND + SONG_ID;
+
+        //sending json request
+        try {
+            sendRequest(FINAL_URL, TOKEN);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void album(String ALBUM_ID) {
+        String URL_APPEND = "album?album_id=";
+        ALBUM_ID = ALBUM_ID.trim();
+        String FINAL_URL = URL_BASE  + URL_APPEND + ALBUM_ID;
+
+        try {
+            sendRequest(FINAL_URL, TOKEN);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void artist(String ARTIST_ID) {
+        String URL_APPEND = "artist?artist_id=";
+        ARTIST_ID = ARTIST_ID.trim();
+        String FINAL_URL = URL_BASE + URL_APPEND + ARTIST_ID;
+
+        try {
+            sendRequest(FINAL_URL, TOKEN);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void user(String TYPE) {
+        TYPE = TYPE.trim();
+        String URL_APPEND = "user/" + TYPE;
+        String FINAL_URL = URL_BASE + URL_APPEND;
+
+        try {
+            sendRequest(FINAL_URL, TOKEN);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void relations() {
+        String URL_APPEND = "relations";
+        String FINAL_URL = URL_BASE + URL_APPEND;
+
+        try {
+            sendRequest(FINAL_URL, TOKEN);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    //overloading to allow an optional parameter
+    public void relations(String REQUESTED_USER_ID) {
+        REQUESTED_USER_ID = REQUESTED_USER_ID.trim();
+        String URL_APPEND = "relations?requested_user_id=" + REQUESTED_USER_ID;
+        String FINAL_URL = URL_BASE + URL_APPEND;
+
+        try {
+            sendRequest(FINAL_URL, TOKEN);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void tags() {
+        String URL_APPEND = "tags/all";
+        String FINAL_URL = URL_BASE + URL_APPEND;
+
+        try {
+            sendRequest(FINAL_URL, TOKEN);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void tag(String TAG_ID) {
+        String URL_APPEND = "tag?tag_id=";
+        TAG_ID = TAG_ID.trim();
+        String FINAL_URL = URL_BASE + URL_APPEND + TAG_ID;
+
+        try {
+            sendRequest(FINAL_URL, TOKEN);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void playlist(String PLAYLIST_ID) {
+        String URL_APPEND = "playlist/data?playlist_id=";
+        PLAYLIST_ID = PLAYLIST_ID.trim();
+        String FINAL_URL = URL_BASE + URL_APPEND + PLAYLIST_ID;
+
+        try {
+            sendRequest(FINAL_URL, TOKEN);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    //TODO: add the playlist / add and playlist / remove methods
+
+
+    public void trending(String MUSIC_LANGUAGE) {
+        String URL_APPEND = "trending?music_language=";
+        MUSIC_LANGUAGE = MUSIC_LANGUAGE.trim();
+        String FINAL_URL = URL_BASE + URL_APPEND + MUSIC_LANGUAGE;
+
+        if(MUSIC_LANGUAGE == "0") {
+            try {
+                sendRequest(FINAL_URL, TOKEN);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else if(MUSIC_LANGUAGE == "1") {
+            try {
+                sendRequest(FINAL_URL, TOKEN);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else if(MUSIC_LANGUAGE == "3") {
+            try {
+                sendRequest(FINAL_URL, TOKEN);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            System.out.println("Please enter an accepted response: " +
+                    "\n 0: Returns Arabic and International trending songs " +
+                    "\n 1: Returns Arabic trending songs " +
+                    "\n 2: Returns International songs");
+        }
+    }
+
+    public void search(String QUERY, String SEARCH_TYPE, String PAGE) {
+        QUERY = QUERY.trim(); SEARCH_TYPE = SEARCH_TYPE.trim(); PAGE = PAGE.trim();
+        String URL_APPEND = "search?query=" + QUERY + "&searchtype=" + SEARCH_TYPE + "&page=" + PAGE;
+        String FINAL_URL = URL_BASE + URL_APPEND;
+
+        //TODO: add statements to check for invalid input by developer here.
+        try {
+            sendRequest(FINAL_URL, TOKEN);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    //overloading to allow optional parameter
+    public void search(String QUERY, String ARTIST_ID, String SEARCH_TYPE, String PAGE) {
+        QUERY = QUERY.trim(); ARTIST_ID = ARTIST_ID.trim(); SEARCH_TYPE = SEARCH_TYPE.trim(); PAGE = PAGE.trim();
+        String URL_APPEND = "search?query=" + QUERY + "&artistid=" + ARTIST_ID + "&searchtype=" + SEARCH_TYPE + "&page=" + PAGE;
+        String FINAL_URL = URL_BASE + URL_APPEND;
+
+        //TODO: add statements to check for invalid input by developer here.
+        try {
+            sendRequest(FINAL_URL, TOKEN);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
 
-    //Just listing the following endpoints below:
-    // SONG
-    // song
-    // liking and unliking
-    // ALBUM
-    // album
-    // album liking and unlike
-    // ARTIST
-    // artist
-    // USER
-    // user / artists
-    // user / albums
-    // user / playlists
-    // user / likes
-    // user / downloads
-    // RELATIONS
-    // TAGS
-    // tags / all
-    // tag
-    // PLAYLIST
-    // playlist / data
-    // playlist / add / and playlist / remove
-    // TRENDING
-    // SEARCH
 
     // Example response from the endpoint may look like this:
 
