@@ -1,11 +1,6 @@
 import java.net.*;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import java.io.*;
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLSession;
 
 class anghamiWrapper {
 
@@ -31,10 +26,14 @@ class anghamiWrapper {
 
     final private String URL_BASE = "https://bus.anghami.com/public/";
     final private String ART_URL_BASE = "https://artworkbus.angham.me/?";
-    final private String TOKEN = null; //Put your Token here.
+    final private String TOKEN; //Put your Token here.
     final private String METHOD = "GET";
     final private String XAT_HEADER = "interns";
     HttpURLConnection connection = null;
+
+    anghamiWrapper(String TOKEN) {
+        this.TOKEN = TOKEN;
+    }
 
     public void sendRequest(String FINAL_URL, String XATH_TOKEN) throws IOException {
         // init
