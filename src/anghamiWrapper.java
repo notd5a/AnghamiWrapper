@@ -20,9 +20,83 @@ class anghamiWrapper {
     final private String URL_BASE = "https://bus.anghami.com/public/";
     final private String TOKEN = "0965e52bb0605cb551a32c43";
     final private String METHOD = "GET";
+    final private String XAT_HEADER = "interns";
+    HttpURLConnection connection = null;
 
-    //lets build the URL in the below function:
-    StringBuilder SB = new StringBuilder();
+    public void sendRequest(String FINURL, String XATH_TOKEN, String METHOD, String XAT_HEADER) throws IOException {
+        // init
+        URL url = new URL(FINURL);
+        connection = (HttpsURLConnection) url.openConnection();
+
+        //setting headers and req method
+        connection.setRequestMethod(METHOD);
+        connection.setRequestProperty("XATH", XATH_TOKEN);
+        connection.setRequestProperty("XAT", XAT_HEADER);
+
+        //
+
+
+
+    }
+
+    //Just listing the following endpoints below:
+    // SONG
+    // song
+    // liking and unliking
+    // ALBUM
+    // album
+    // album liking and unlike
+    // ARTIST
+    // artist
+    // USER
+    // user / artists
+    // user / albums
+    // user / playlists
+    // user / likes
+    // user / downloads
+    // RELATIONS
+    // TAGS
+    // tags / all
+    // tag
+    // PLAYLIST
+    // playlist / data
+    // playlist / add / and playlist / remove
+    // TRENDING
+    // SEARCH
+
+    // Example response from the endpoint may look like this:
+
+            /* {
+                     "nofollow": false,
+                     "id": "22451141",
+                     "title": "Aam Betaala' Feek",
+                     "album": "Nancy 9 (Hassa Beek)",
+                     "albumID": "2380570",
+                     "artist": "Nancy Ajram",
+                     "artistID": "680",
+                     "track": "13",
+                     "year": "2016",
+                     "duration": "220.13",
+                     "coverArt": "50043866",
+                     "ArtistArt": "110473370",
+                     "allowoffline": 0,
+                     "genre": "Lebanese Pop",
+                     "AlbumArt": "50043866",
+                     "keywords": ["\u0639\u0645 \u0628\u062a\u0639\u0644\u0651\u0642 \u0641\u064a\u0643",
+                    "\u0646\u0627\u0646\u0633\u064a \u0639\u062c\u0631\u0645", "\u0646\u0627\u0646\u0633\u064a 9
+                    (\u062d\u0627\u0633\u0651\u0629 \u0628\u064a\u0643)"],
+                     "languageid": 1,
+                     "bitrates": "24,128,196,256",
+                     "hexcolor": "#b3756c",
+                     "cleardetails": 1,
+                     "bitrate": 64,
+                     "size": "1794301",
+                     "explicit": "0",
+                     "is_podcast": 0,
+                     "is_original": 1,
+                     "vibes": [205, 502]
+                }
+*/
 
 
 }
