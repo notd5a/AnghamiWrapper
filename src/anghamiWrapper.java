@@ -194,21 +194,21 @@ class anghamiWrapper {
         MUSIC_LANGUAGE = MUSIC_LANGUAGE.trim();
         String FINAL_URL = URL_BASE + URL_APPEND + MUSIC_LANGUAGE;
 
-        if(MUSIC_LANGUAGE == "0") {
+        if(MUSIC_LANGUAGE.equals("0")) {
             try {
                 sendRequest(FINAL_URL, TOKEN);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        else if(MUSIC_LANGUAGE == "1") {
+        else if(MUSIC_LANGUAGE.equals("1")) {
             try {
                 sendRequest(FINAL_URL, TOKEN);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        else if(MUSIC_LANGUAGE == "3") {
+        else if(MUSIC_LANGUAGE.equals("3")) {
             try {
                 sendRequest(FINAL_URL, TOKEN);
             } catch (IOException e) {
