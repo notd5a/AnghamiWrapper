@@ -49,9 +49,6 @@ class anghamiWrapper {
             System.out.println("Erroneous request");
             CONNECTION_IN = connection.getErrorStream();
         }
-        else { //OTHER ERROR RESPONSES
-            CONNECTION_IN = connection.getErrorStream();
-        }
 
         // print resulting stream
         BufferedReader buffer = new BufferedReader(new InputStreamReader(CONNECTION_IN));
