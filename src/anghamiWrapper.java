@@ -30,7 +30,8 @@ class anghamiWrapper {
     //Documentation available at: https://s3-eu-west-1.amazonaws.com/anghami.interns2020/Anghami+Public+API+interns2020.pdf
 
     final private String URL_BASE = "https://bus.anghami.com/public/";
-    final private String TOKEN = "0965e52bb0605cb551a32c43";
+    final private String ART_URL_BASE = "https://artworkbus.angham.me/?";
+    final private String TOKEN = null; //Put your Token here.
     final private String METHOD = "GET";
     final private String XAT_HEADER = "interns";
     HttpURLConnection connection = null;
@@ -52,6 +53,10 @@ class anghamiWrapper {
         // checking for error codes
         if(RETURN_CODE == 200) { //OK RESPONSE
             CONNECTION_IN = connection.getInputStream();
+        }
+        else if(RETURN_CODE == 400) { //BAD REQUEST
+            System.out.println("Bad Request, Revaluate syntax of request");
+            CONNECTION_IN = connection.getErrorStream();
         }
         else if(RETURN_CODE == 401) { //ERROR
             System.out.println("Authentication failure");
@@ -77,6 +82,19 @@ class anghamiWrapper {
         //sending json request
         try {
             sendRequest(FINAL_URL, TOKEN);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void album_art(String ID, String SIZE) {
+        ID = ID.trim(); SIZE = SIZE.trim();
+        String URL_APPEND = "id=" + ID + "&size=" + SIZE;
+        String FINAL_URL = ART_URL_BASE + URL_APPEND;
+
+        try {
+            sendRequest(FINAL_URL,TOKEN);
         } catch (IOException e) {
             e.printStackTrace();
         }
