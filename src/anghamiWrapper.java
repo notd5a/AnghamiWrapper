@@ -1,13 +1,12 @@
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.net.*;
 import java.io.*;
 import javax.net.ssl.HttpsURLConnection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
+
 
 class anghamiWrapper {
 
@@ -16,7 +15,7 @@ class anghamiWrapper {
     //  APIWrapper must use the GET HTTPS protocol to communicate to the endpoint
     //  Requests (API calls) sent to Anghami servers must include the following headers:
     //  HEADER:  XAT: interns
-    //  HEADER: XATH: 0965e52bb0605cb551a32c43
+    //  HEADER: XATH: TOKEN
     //  API link: https://bus.anghami.com/public/song?song_id=22451141
 
     // In order to get an item’s cover art, you
