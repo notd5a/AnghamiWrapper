@@ -5,6 +5,8 @@ import org.json.JSONObject;
 import java.net.*;
 import java.io.*;
 import javax.net.ssl.HttpsURLConnection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 class anghamiWrapper {
@@ -35,6 +37,11 @@ class anghamiWrapper {
     final private String METHOD = "GET";
     final private String XAT_HEADER = "interns";
     HttpURLConnection connection = null;
+    private Map<Object, Object> values = new HashMap<>();
+
+    //getter and setter for the map so it can be used externally from another class
+    public void setMapValues(Map<Object, Object> values) { this.values = values; }
+    public Map<Object, Object> getMapValues(){ return values; }
 
     anghamiWrapper(String TOKEN) {
         this.TOKEN = TOKEN;
@@ -91,6 +98,7 @@ class anghamiWrapper {
         JSONArray response_array = response.names(); // gives us the names for the keys.
         for(int i = 0; i < response.length(); i++) {
             System.out.println("Key: " + response_array.get(i) + " || Value: " + response.get((String) response_array.get(i)));
+            values.put(response_array.get(i), response_array.get(i));
         }
     }
 
