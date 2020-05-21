@@ -7,7 +7,9 @@ public class testClass {
 
     public static void main(String[] args) {
 
-        anghamiWrapper AW = new anghamiWrapper(TOKEN);
+        //anghamiWrapper AW = new anghamiWrapper(TOKEN)
+
+
 
     }
 

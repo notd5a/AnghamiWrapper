@@ -1,6 +1,11 @@
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.net.*;
 import java.io.*;
 import javax.net.ssl.HttpsURLConnection;
+import java.util.Set;
 
 class anghamiWrapper {
 
@@ -26,7 +31,7 @@ class anghamiWrapper {
 
     final private String URL_BASE = "https://bus.anghami.com/public/";
     final private String ART_URL_BASE = "https://artworkbus.angham.me/?";
-    final private String TOKEN; //Put your Token here.
+    final private String TOKEN;
     final private String METHOD = "GET";
     final private String XAT_HEADER = "interns";
     HttpURLConnection connection = null;
@@ -69,9 +74,26 @@ class anghamiWrapper {
         // print resulting stream
         BufferedReader buffer = new BufferedReader(new InputStreamReader(CONNECTION_IN));
         String inputLine;
-        while ((inputLine = buffer.readLine()) != null) /* print json response */ System.out.println(inputLine);
+        while ((inputLine = buffer.readLine()) != null) {/* print json response */
+            System.out.println(inputLine); // prints cleartext JSON on one line.
+            try {
+                JSONParser(inputLine); // prints in formatted style.
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
         buffer.close();
     }
+
+    public void JSONParser(String INPUT) throws JSONException {
+        JSONObject response = new JSONObject(INPUT);
+        JSONArray response_array = response.names(); // gives us the names for the keys.
+        for(int i = 0; i < response.length(); i++) {
+            System.out.println("Key: " + response_array.get(i) + " || Value: " + response.get((String) response_array.get(i)));
+        }
+    }
+
 
     public void song(String SONG_ID) {
         String URL_APPEND = "song/data?song_id=";
@@ -290,10 +312,6 @@ class anghamiWrapper {
             e.printStackTrace();
         }
     }
-
-
-
-
 
     // Example response from the endpoint may look like this:
 
